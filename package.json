@@ -1,0 +1,58 @@
+{
+  "name": "library-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --config build/webpack.config.js --mode development --hot",
+    "lint": "tslint --project ./tsconfig.json && stylelint \"./web-client/**/*.scss\" --fix",
+    "precommit": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roerossh/libraryDemo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roerossh/libraryDemo/issues"
+  },
+  "homepage": "https://github.com/roerossh/libraryDemo#readme",
+  "devDependencies": {
+    "@svgr/webpack": "^4.1.0",
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "cache-loader": "^2.0.1",
+    "css-loader": "^1.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^1.3.1",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-hot-loader": "^4.8.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-scss": "^3.5.4",
+    "ts-import-plugin": "^1.5.5",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "tslint": "^5.14.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3333",
+    "typings-for-css-modules-loader": "^1.7.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "antd": "^3.15.1",
+    "mobx": "^5.9.0",
+    "mobx-react": "^5.4.3"
+  }
+}

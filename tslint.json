@@ -1,0 +1,7 @@
+{
+    // 针对tslint的扩展 [0]:稳定且常规的tslint检测标准，[1]:扩展react的tsx
+    "extends": ["tslint:recommended", "tslint-react"],
+    "rules": {
+        "no-console": true
+    }
+}

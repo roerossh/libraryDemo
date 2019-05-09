@@ -7,12 +7,15 @@ const fileRules = require('./rules/fileRules');
 const { resolve } = require('./utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { HotModuleReplacementPlugin } = require('webpack');
+
 
 module.exports = {
     entry: {
         app: resolve('web-client/index.tsx')
     },
     output: {
+         // TODO：这样写正确？
         path: resolve('dist'),
         filename: '[name].js'
     },
@@ -34,7 +37,22 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'build/tpl/index.html'
+            template: 'config/tpl/index.html'
         }),
-    ]
+        new HotModuleReplacementPlugin(), // 让HMR启动全局HMR
+    ],
+    // 配置webpack-dev-server
+    devServer: {
+        contentBase: resolve('dist'), // 告诉服务器从哪个目录中提供内容。只有在想要提供静态文件时才需要
+        hot: true, // devServer开启 HMR，
+        port: 2222,
+        proxy: {
+            '/api': 
+            {
+                target: 'http://localhost:2333',
+                changeOrigin: true, // 跨域
+                secure: false, // 接受https 无效证书的请求
+            },
+        }
+    }
 }

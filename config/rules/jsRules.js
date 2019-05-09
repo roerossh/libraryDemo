@@ -16,22 +16,24 @@ module.exports = [
                     cacheDirectory: resolve('.cache-loader'),
                     babelOptions: {
                         // TODO: babelrc这儿是什么逻辑？
-                        babelrc: false,
+                        // babelrc: true,
                         plugins: [
                             'react-hot-loader/babel'
                         ]
                     },
                     // 按需加载antd的组件
                     getCustomTransformers: () => ({
-                        before: [ tsImportPluginFactory( {
+                        before: [
+                            tsImportPluginFactory( {
                             libraryName: 'antd',
                             libraryDirectory: 'lib',
                             // true,使用组件内的less文件，不用再手动导入
                             style: true,
-                        } ) ]
+                        }),
+                    ]
                       }),
                 }
-            }
+            },
         ]
     }
 ]

@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as styles from "./index.scss";
+import AppWrapper from './pages/app';
 
 const render = () => {
+    // className={styles.appWrapper} 
     ReactDOM.render(
-        <div className={styles.appWrapper}>ibrary demo</div>,
+        <AppWrapper/>,
         document.querySelector("#app"),
     );
 };

@@ -8,8 +8,7 @@
     "dev": "webpack-dev-server --config config/webpack.config.js --mode development --hot",
     "build": "webpack --config build/webpack.config.js",
     "mock": "node ./node-server/scripts/mock.js",
-    "lint": "tslint --project ./tsconfig.json && stylelint \"./web-client/**/*.scss\" --fix",
-    "precommit": "npm run lint"
+    "lint": "tslint --project ./tsconfig.json && stylelint \"./web-client/**/*.scss\" --fix"
   },
   "repository": {
     "type": "git",

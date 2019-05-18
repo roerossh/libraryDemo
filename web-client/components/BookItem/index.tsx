@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
+import {observer} from 'mobx-react';
 import { IBook } from '@server/interfaces/books';
-import { Card, Button, Modal, Layout } from 'antd';
+import { Card, Button, Modal, message } from 'antd';
 import BookItemStore from './store';
 
 const {Meta} = Card;
@@ -20,11 +21,12 @@ const BookDescription = (props: IProps) => {
   )
 }
 
+@observer
 export default class BookItem extends Component<IProps> {
 
   state = {
     visible: false,
-    confirmLoading: false,
+    loading: false,
   }
   
 
@@ -51,11 +53,18 @@ export default class BookItem extends Component<IProps> {
     confirm({
       title: '朋友，你确定借了会看？',
       content: '不看还是别借了...',
-      onOk() {
-        console.log('借书');
+      onOk: async () => {
+        this.setState({loading: true});
+        const res = await BookItemStore.borrowBook(this.props.item.id);
+        let msg = '预约失败';
+        if ( res && res.data.code === 0) {
+          msg = '预约成功';
+        }
+        setTimeout(()=> {this.setState({loading: false}, () => {
+          message.info(msg);
+        })}, 1000);
       },
       onCancel() {
-        console.log('取消');
       },
       okText: '确认',
       cancelText: '取消',
@@ -63,17 +72,16 @@ export default class BookItem extends Component<IProps> {
   }
     render() {
         const { item } = this.props;
-        const { visible, confirmLoading } = this.state;
+        const { loading, visible } = this.state;
         const cover = require('../../common/img/book_cover.png');
-        console.log('render cover:', cover);
         return (
           <div style={{display: 'inline-block'}}>
             <Card
                 hoverable
                 style={{ width: 250, display: 'inline-block', margin: '5px' }}
-                cover={<img alt={cover} src={cover || item.img} />}
+                cover={<img src={ item.img || cover} />}
                 actions={[item.borrowCount ?
-                <Button icon="book" onClick={this.handleBorrow}>借书</Button> : <Button icon="book" disabled>不可借</Button>,
+                <Button loading={loading} icon="book" onClick={this.handleBorrow}>预约</Button> : <Button icon="book" disabled>不可借</Button>,
                 <Button icon="ellipsis" onClick={this.showModal}>详情</Button>]}
               >
                 <Meta
@@ -83,7 +91,7 @@ export default class BookItem extends Component<IProps> {
               </Card>
               <Modal
                 title={item.name}
-                visible={this.state.visible}
+                visible={visible}
                 onOk={this.handleOk}
                 onCancel={this.handleCancel}
                 footer={[<Button type="primary" onClick={this.handleOk}>我知道了
@@ -114,7 +122,7 @@ export default class BookItem extends Component<IProps> {
         //       <div>ISBN: {9787544253994}</div>
         //       <div><span style={{ fontSize: '30px', color: '#FF6E27', paddingLeft: '5px' }}>{item.borrowCount}</span>本可借(馆藏共{item.totalCount}本)</div>
         //           {item.borrowCount < item.totalCount ?
-        //           <Button>借书</Button> :
+        //           <Button>预约</Button> :
         //           <Button disabled >不可借</Button> }
         //     </div>
         //   </div>

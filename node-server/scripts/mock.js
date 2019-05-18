@@ -17,7 +17,11 @@ mockServer.on('close', (code) => {
   console.log(`mockServer子进程退出码：${code}`);
 });
 
-const devSercice = spawn('npm', ['run', 'dev'], {
+// const devSercice = spawn('npm', ['run', 'dev'], {
+//   cwd: path.resolve(__dirname, '../')
+// });
+
+const devSercice = spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run',  'dev'], {
   cwd: path.resolve(__dirname, '../')
 });
 

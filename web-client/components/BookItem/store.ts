@@ -1,14 +1,20 @@
 import { observable, action } from 'mobx';
+import { doAction } from '@utils/api';
+import { borrowBook } from 'domain/books';
+import { ReserveOptions } from '@server/interfaces/books';
 
 class BookItemStore{
-    @observable
-    visible: boolean = false; // modal是否可见
 
     @observable
     modalText: string = '';
 
-    @observable
-    confirmLoading: boolean = false;
+    @action
+    borrowBook = async(id: string) => {
+        const res = await doAction(borrowBook(id, ReserveOptions.reserve));
+        console.log( 'store res:', res);
+        return res;
+    }
+
 }
 
 export default new BookItemStore();

@@ -11,6 +11,7 @@ const {Header, Content} = Layout;
 const { Meta } = Card;
 @observer
 export default class BookList extends Component {
+
     onSearch = (val: string) =>{
         BookStore.queryBookList(val);
     }

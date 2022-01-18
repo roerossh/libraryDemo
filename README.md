@@ -45,3 +45,28 @@
 |- tsconfig.json
 
 ```
+
+### 运行项目
+
+初次运行：
+```
+npm install
+npm run dev // mock 数据则运行命令 npm run mock
+```
+
+非初次运行：
+```
+npm run dev // 或 npm run mock
+```
+
+指令说明：
+
+| 指令            | 说明                              |
+| --------------- | --------------------------------- |
+| `npm install `  | 安装node_modules依赖              |
+| `npm run dev`   | dev环境下运行项目                 |
+| `npm run build` | 打包构建项目                      |
+| `npm run mock`  | 使用mock数据源，dev环境下运行项目 |
+| `npm run lint`  | 执行代码规范检查                  |
+
+注：执行`npm run mock`指令，脚本文件中包含`npm run dev`指令，会同时启动localhost: 2333后端和localhost: 2222前端。
